@@ -32,10 +32,14 @@ router.get('/users/:name', function(req, res) {
   var name = req.params.name;
   var tweets = tweetBank.find( {name: name} );//Remember before the colon, name is property (not variable)
   //the second name (after colon) is the variable that takes the value of the params.name (via var name)
-  res.render( 'index', { tweets: tweets } );//remember the tweets part must match
+  res.render( 'index', { tweets: tweets, user: name, showForm: true } );//remember the tweets part must match
   //the variable in index.html (so it has to be 'tweets', not anything else unless
   //you change the variable name in html document)
 });
+
+// router.get('/', function(req, res) {
+//   res.render( 'index', { tweets: tweets, showForm: true } );
+// });
 
 
 router.get('/tweets/:id', function(req, res) {
@@ -47,11 +51,24 @@ router.get('/tweets/:id', function(req, res) {
   //you change the variable name in html document)
 });
 
+
+
 // router.get('/stylesheets/style.css',function(req,res){
 //   //res.sendFile('stylesheets/style.css');//Not working for some reason...
 //   res.sendFile('/Users/lli494/Desktop/Foundations/twitter-js/public/stylesheets/style.css');
 //   //MUST BE ABSOLUTE PATH... NOT RELATIVE
 // });
 //The above had to be commented out once we included static routing (see app.js)
+
+router.get('/test',function(req,res){
+  res.send('testtest');
+})
+
+router.post('/tweets', function(req, res) {
+  var name = req.body.name;
+  var text = req.body.text;
+  tweetBank.add(name, text);
+  res.redirect('/');
+});
 
 module.exports = router;

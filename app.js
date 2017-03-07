@@ -5,11 +5,26 @@ const morgan=require('morgan');//don't forget npm install morgan or
 const nunjucks=require('nunjucks');
 //const people = [{name: 'Full'}, {name: 'Stacker'}, {name: 'Son'}];
 const routes=require('./routes');
+let bodyParser= require('body-parser');
+
+//ORDER: logger first,
+app.use(morgan('dev'));
+
+//Applies body of the request to the property body of req (that WOULDN"T EXIST UNTIL BODY PARSER DOES ITS THING)
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}));
+
+//THIS RUNS THE REQUEST THROUGH THROUGH ROUTES MIDDLEWARE
+//body parsing MUST happen before this
 app.use('/', routes);
 app.use(express.static('public'));//Remember, if you are using static routing,
 // you have to get rid of your res.sendFile functions in index.js or you may run into conflicts
 
 //{'index', {title: 'Hall of Fame', people: people}
+
+
+
+
 
 
 app.set('view engine', 'html'); // have res.render work with html files
@@ -20,7 +35,7 @@ nunjucks.configure('views', {noCache: true}); //since we're developing, we don't
 //     console.log(output);
 // });
 
-app.use(morgan('dev'));
+
 
 // app.get('/',function(req, res){
 //   //console.log('GET /');
