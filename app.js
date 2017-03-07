@@ -3,7 +3,7 @@ const app=express();
 const morgan=require('morgan');//don't forget npm install morgan or
 //npm i --save morgan
 const nunjucks=require('nunjucks');
-const people = [{name: 'Full'}, {name: 'Stacker'}, {name: 'Son'}];
+//const people = [{name: 'Full'}, {name: 'Stacker'}, {name: 'Son'}];
 const routes=require('./routes');
 app.use('/', routes);
 app.use(express.static('public'));//Remember, if you are using static routing,

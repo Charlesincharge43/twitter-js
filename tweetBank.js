@@ -1,9 +1,10 @@
 const _ = require('lodash');
 
 let data = [];
-
+let tweetcounter = 0;//This is the unique id (each new tweet will simply be assigned the counter number as id)
 function add (name, content) {
-  data.push({ name: name, content: content });
+  tweetcounter++;
+  data.push({ name: name, content: content, id: tweetcounter});
 }
 
 
@@ -14,6 +15,8 @@ function list () {
 function find (properties) {
   return _.cloneDeep(_.filter(data, properties));
 }
+//Example for find:  find({name : 'David Docsreader'})
+//The above will most likely not work however.. remember these names are randomly generated
 
 module.exports = { add: add, list: list, find: find };
 
@@ -41,3 +44,7 @@ for (let i = 0; i < 10; i++) {
 //you HAVE to console.log() that.  Simply calling list() won't do anything,
 //I guess because server can't really "return anything" outside the context of
 //responding to client requests... ask instructors about this
+
+
+//console.log(find({name : data[6].name}))
+//console.log(find({id : 5}))

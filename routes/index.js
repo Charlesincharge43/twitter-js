@@ -16,9 +16,35 @@ const tweetBank = require('../tweetBank');
 
 
 router.get('/', function (req, res) {
-  let tweets = tweetBank.list();
+  let tweets = tweetBank.list();//tweets is the object that contains all tweets
   res.render( 'index', { tweets: tweets } );
-  //res.render( 'index', locals );
+  //res.render basically provides the relevant information to fill in the
+  //{% for tweet in tweets %} part of index.html (template) in the creation of a new
+  //html
+
+  //res.render( 'index', locals );//testing purposes
+});
+
+
+
+
+router.get('/users/:name', function(req, res) {
+  var name = req.params.name;
+  var tweets = tweetBank.find( {name: name} );//Remember before the colon, name is property (not variable)
+  //the second name (after colon) is the variable that takes the value of the params.name (via var name)
+  res.render( 'index', { tweets: tweets } );//remember the tweets part must match
+  //the variable in index.html (so it has to be 'tweets', not anything else unless
+  //you change the variable name in html document)
+});
+
+
+router.get('/tweets/:id', function(req, res) {
+  var id = +req.params.id;//!!!! REMEMBER YOU NEED TO CONVERT FROM STRING TO NUMBER...
+  //PARAMS ARE STRING INITIALLY
+  var tweets = tweetBank.find( {id: id} );
+  res.render( 'index', { tweets: tweets } );//remember the tweets part must match
+  //the variable in index.html (so it has to be 'tweets', not anything else unless
+  //you change the variable name in html document)
 });
 
 // router.get('/stylesheets/style.css',function(req,res){

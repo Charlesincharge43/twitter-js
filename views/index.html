@@ -11,11 +11,16 @@
       <b>Your Name</b><br>
       100 followers
     </div>
+    <h3>All Tweets</h3>
     <div class="col-md-9">
 
       <!-- display tweets here -->
+      <! added tweet.name... not sure why li is necessary (it just adds a dot)>
       {% for tweet in tweets %}
+        <!added link to individual user twitter>
+        <b><a href="/users/{{tweet.name}}">{{tweet.name}}</a></b> * <a href="/tweets/{{tweet.id}}">link to message</a>
         <li>{{tweet.content}}</li>
+        <hr>
       {% endfor %}
 
     </div>
